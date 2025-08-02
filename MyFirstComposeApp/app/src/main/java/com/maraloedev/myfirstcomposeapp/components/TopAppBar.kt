@@ -2,6 +2,7 @@
 
 package com.maraloedev.myfirstcomposeapp.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -14,12 +15,13 @@ import androidx.compose.ui.res.painterResource
 import com.maraloedev.myfirstcomposeapp.R
 
 @Composable
-fun MyTopAppBar(modifier: Modifier = Modifier) {
+fun MyTopAppBar(modifier: Modifier = Modifier, onNavSelected: () -> Unit) {
 
     TopAppBar(
         title = { Text(text = "My App") },
         navigationIcon = {
             Icon(
+                modifier = Modifier.clickable { onNavSelected() },
                 painter = painterResource(R.drawable.ic_info),
                 contentDescription = null
             )
