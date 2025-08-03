@@ -68,9 +68,9 @@ fun MyButton(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MyFAB(modifier: Modifier = Modifier) {
+fun MyFAB(modifier: Modifier = Modifier, showCombat:() -> Unit) {
 
-    FloatingActionButton(onClick = {}, shape = CircleShape) {
+    FloatingActionButton(onClick = { showCombat() }, shape = CircleShape) {
         Icon(painter = painterResource(R.drawable.ic_add), contentDescription = null)
     }
 
