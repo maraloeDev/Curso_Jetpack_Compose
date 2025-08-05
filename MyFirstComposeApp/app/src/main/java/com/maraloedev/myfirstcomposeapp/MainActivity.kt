@@ -31,6 +31,7 @@ import com.maraloedev.myfirstcomposeapp.components.MyModalDrawer
 import com.maraloedev.myfirstcomposeapp.components.MyNavigationBar
 import com.maraloedev.myfirstcomposeapp.components.MyTopAppBar
 import com.maraloedev.myfirstcomposeapp.components.model.PokemonCombat
+import com.maraloedev.myfirstcomposeapp.components.navigation.NavigationWrapper
 import com.maraloedev.myfirstcomposeapp.ui.theme.MyFirstComposeAppTheme
 import kotlinx.coroutines.launch
 
@@ -40,51 +41,53 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MyFirstComposeAppTheme {
-                val snackbarHostState = remember { SnackbarHostState() }
-                val scope = rememberCoroutineScope()
-                val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-                var showDialog by remember { mutableStateOf(false) }
-                val pokemonCombat = PokemonCombat("Pikachu", "Gengar")
 
-                MyCustomDialog(
-                    showDialog = showDialog,
-                    pokemonCombat = pokemonCombat,
-                    onStartCombat = {showDialog = false},
-                    onDimissDialog = {showDialog = false}) //Dialogos por encima, debido a que se quiere mostrar primero
-                MyModalDrawer(drawerState) {
-                    Scaffold(
-                        modifier = Modifier.fillMaxSize(),
-                        topBar = { MyTopAppBar { scope.launch { drawerState.open() } } },
-                        snackbarHost = { SnackbarHost(snackbarHostState) },
-                        floatingActionButton = { MyFAB { showDialog = true } },
-                        floatingActionButtonPosition = FabPosition.Start,
-                        bottomBar = { MyNavigationBar() }) { innerPadding ->
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(innerPadding)
-                                .background(Color.Cyan), contentAlignment = Alignment.Center
-                        ) {
-                            Text("Esta es mi screen", Modifier.clickable {
-                                scope.launch {
-                                    val result = snackbarHostState.showSnackbar(
-                                        message = "Ejemplo 1",
-                                        actionLabel = "Deshacer" //Cierra el snackbar, y se puede deshacer la accion
-                                    )
-
-                                    if (result == SnackbarResult.ActionPerformed) {
-                                        //pulso deshacer
-                                    } else {
-                                        //No hiza nada
-                                    }
-                                }
-                            })
-                        }
-                    }
-                }
-
-            }
+            NavigationWrapper()
+//            MyFirstComposeAppTheme {
+//                val snackbarHostState = remember { SnackbarHostState() }
+//                val scope = rememberCoroutineScope()
+//                val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+//                var showDialog by remember { mutableStateOf(false) }
+//                val pokemonCombat = PokemonCombat("Pikachu", "Gengar")
+//
+//                MyCustomDialog(
+//                    showDialog = showDialog,
+//                    pokemonCombat = pokemonCombat,
+//                    onStartCombat = {showDialog = false},
+//                    onDimissDialog = {showDialog = false}) //Dialogos por encima, debido a que se quiere mostrar primero
+//                MyModalDrawer(drawerState) {
+//                    Scaffold(
+//                        modifier = Modifier.fillMaxSize(),
+//                        topBar = { MyTopAppBar { scope.launch { drawerState.open() } } },
+//                        snackbarHost = { SnackbarHost(snackbarHostState) },
+//                        floatingActionButton = { MyFAB { showDialog = true } },
+//                        floatingActionButtonPosition = FabPosition.Start,
+//                        bottomBar = { MyNavigationBar() }) { innerPadding ->
+//                        Box(
+//                            modifier = Modifier
+//                                .fillMaxSize()
+//                                .padding(innerPadding)
+//                                .background(Color.Cyan), contentAlignment = Alignment.Center
+//                        ) {
+//                            Text("Esta es mi screen", Modifier.clickable {
+//                                scope.launch {
+//                                    val result = snackbarHostState.showSnackbar(
+//                                        message = "Ejemplo 1",
+//                                        actionLabel = "Deshacer" //Cierra el snackbar, y se puede deshacer la accion
+//                                    )
+//
+//                                    if (result == SnackbarResult.ActionPerformed) {
+//                                        //pulso deshacer
+//                                    } else {
+//                                        //No hiza nada
+//                                    }
+//                                }
+//                            })
+//                        }
+//                    }
+//                }
+//
+//            }
         }
     }
 }
