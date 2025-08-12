@@ -34,9 +34,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maraloedev.instadev.R
 
-@Preview
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
+fun LoginScreen(loginViewModel: LoginViewModel = viewModel(), onNavigateToCreateNewAccount:() -> Unit) {
 
     //Cuando la pantalla muera, la subscripcion muere
     val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
@@ -111,7 +110,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
             Spacer(Modifier.weight(1f))
             OutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { },
+                onClick = { onNavigateToCreateNewAccount() },
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
             ) {
                 Text(
