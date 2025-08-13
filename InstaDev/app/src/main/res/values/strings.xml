@@ -5,7 +5,19 @@
     <string name="login_screen_text_spanish_spain">Español (España)</string>
     <string name="login_screen_outlined_text_field_user_email_phone">Usuario, correo electronico o movil</string>
     <string name="login_screen_outlined_text_field_password">Contraseña</string>
-    <string name="login_screen_Button_Login">"Iniciar sesion"</string>
-    <string name="login_screen_Text_Button_Forgot_Password">"¿Has olvidado la contraseña?"</string>
-    <string name="login_screen_Text_Button_Create_new_account">""Crear cuenta nueva""</string>
+    <string name="login_screen_button_Login">"Iniciar sesion"</string>
+    <string name="login_screen_text_Button_Forgot_Password">"¿Has olvidado la contraseña?"</string>
+    <string name="login_screen_text_Button_Create_new_account">Crear cuenta nueva</string>
+
+    <!-- REGISTER SCREEN<!-->
+    <string name="register_screen_text_which_your_number_phone">¿Cuál es tu número de movil?</string>
+    <string name="register_screen_text_which_your_mail">¿Cuál es tu correo electrónico?</string>
+    <string name="register_screen_text_introduce_your_number_phone">Introduce tu número de móvil de contacto. Nadie mas lo verá en tu perfil</string>
+    <string name="register_screen_text_introduce_your_mail">Introduce tu correo electrónico de contacto.Nadie verá esta informacion en tu perfil.</string>
+    <string name="register_screen_outlined_text_field_number_phone">Número de móvil</string>
+    <string name="register_screen_outlined_text_field_mail">Correo electrónico</string>
+    <string name="register_screen_text_information_number_phone">Puede que recibas notificaciones nuestras en WhatsApp y por SMS por motivos de seguridad y para iniciar sesión.</string>
+    <string name="register_screen_text_information_mail">También te enviaremos correos electronicos. Puedes cancelar esta opcion cuando quieras. Mas información</string>
+    <string name="register_screen_button_window_change_mail">Registrarte con tu correo electrónico</string>
+    <string name="register_screen_button_window_change_number_phone">Registrarte con tu número de móvil</string>
 </resources>

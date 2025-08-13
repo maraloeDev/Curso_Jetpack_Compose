@@ -25,12 +25,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.maraloedev.instadev.R
 
 @Composable
 fun RegisterScreen(
@@ -39,6 +41,34 @@ fun RegisterScreen(
 ) {
     val focusManager = LocalFocusManager.current
     val state by registerViewModel.uiState.collectAsStateWithLifecycle()
+
+    val title: String
+    val subtitle: String
+    val label: String
+    val information: String
+    val changeMode: String
+    val kbo: KeyboardOptions
+
+    when (state.isPhoneMode) {
+        true -> {
+            title = stringResource(R.string.register_screen_text_which_your_number_phone)
+            subtitle = stringResource(R.string.register_screen_text_introduce_your_number_phone)
+            label = stringResource(R.string.register_screen_outlined_text_field_number_phone)
+            information = stringResource(R.string.register_screen_text_information_number_phone)
+            changeMode = stringResource(R.string.register_screen_button_window_change_mail)
+            kbo = KeyboardOptions(keyboardType = KeyboardType.Number)
+        }
+
+        false -> {
+            title = stringResource(R.string.register_screen_text_which_your_mail)
+            subtitle = stringResource(R.string.register_screen_text_introduce_your_mail)
+            label = stringResource(R.string.register_screen_outlined_text_field_mail)
+            information = stringResource(R.string.register_screen_text_information_mail)
+            changeMode = stringResource(R.string.register_screen_button_window_change_number_phone)
+            kbo = KeyboardOptions(keyboardType = KeyboardType.Email)
+
+        }
+    }
 
     Scaffold { paddingValues ->
         Column(
@@ -67,24 +97,24 @@ fun RegisterScreen(
 
             Text(
                 modifier = Modifier.align(Alignment.Start),
-                text = "¿Cuál es tu número de móvil?",
+                text = title,
                 fontSize = 27.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
             )
-            Text(text = "Introduce tu número de móvil de contacto. Nadie lo verá en tu perfil")
+            Text(text = subtitle)
             Spacer(Modifier.height(10.dp))
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = state.mobilePhone,
+                value = state.value,
                 shape = RoundedCornerShape(30),
-                onValueChange = { registerViewModel.isPhoneChange(mobilePhone = it) },
-                label = { Text(text = "Número de móvil") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                onValueChange = { registerViewModel.isPhoneChange(value = it) },
+                label = { Text(text = label) },
+                keyboardOptions = kbo
             )
             Spacer(Modifier.height(15.dp))
             Text(
-                text = "Puede que recibas notificaciones nuestras en WhatsApp y por SMS por motivos de seguridad y para iniciar sesión.",
+                text = information,
                 fontSize = 12.sp
             )
             Spacer(Modifier.height(10.dp))
@@ -100,7 +130,7 @@ fun RegisterScreen(
                     containerColor = Color.White
                 ),
                 border = BorderStroke(1.dp, color = Color(0xFFD3D2D5)),
-                onClick = {}) { Text(text = "Registrarte con tu correo electrónico") }
+                onClick = { registerViewModel.isChangeMode() }) { Text(text = changeMode) }
             Spacer(Modifier.weight(1f))
             TextButton(onClick = {}) { Text(text = "Ya tengo una cuenta") }
         }

@@ -3,6 +3,7 @@ package com.maraloedev.instadev.view.auth.login
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,7 +26,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,12 +43,16 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel(), onNavigateToCreate
 
     //Cuando la pantalla muera, la subscripcion muere
     val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
+    val focusManager = LocalFocusManager.current
 
     Scaffold { paddingValues ->
         loginViewModel
         Column(
             modifier = Modifier
                 .padding(paddingValues)
+                .pointerInput(Unit) {
+                    detectTapGestures(onTap = { focusManager.clearFocus() })
+                }
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
                 .padding(horizontal = 24.dp),
@@ -98,12 +106,12 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel(), onNavigateToCreate
             ) {
                 Text(
                     modifier = Modifier.padding(4.dp),
-                    text = stringResource(R.string.login_screen_Button_Login)
+                    text = stringResource(R.string.login_screen_button_Login)
                 )
             }
             TextButton(onClick = { }) {
                 Text(
-                    stringResource(R.string.login_screen_Text_Button_Forgot_Password),
+                    stringResource(R.string.login_screen_text_Button_Forgot_Password),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -114,7 +122,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel(), onNavigateToCreate
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
             ) {
                 Text(
-                    text = stringResource(R.string.login_screen_Text_Button_Create_new_account),
+                    text = stringResource(R.string.login_screen_text_Button_Create_new_account),
                     color = MaterialTheme.colorScheme.primary
                 )
             }
