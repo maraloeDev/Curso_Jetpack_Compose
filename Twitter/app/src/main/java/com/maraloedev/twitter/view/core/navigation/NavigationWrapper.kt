@@ -13,11 +13,11 @@ fun NavigationWrapper() {
 
     NavHost(navController = navController, startDestination = Home) {
         composable<Home> {
-            HomeScreen(onNavigateToLogin = { navController.navigate(Login) })
+            HomeScreen(onNavigateToLogin = { navController.navigate(route = Login) })
         }
 
         composable<Login> {
-            LoginScreen()
+            LoginScreen(onNavigateToHome = { navController.navigate(route = Home) })
         }
     }
 }
