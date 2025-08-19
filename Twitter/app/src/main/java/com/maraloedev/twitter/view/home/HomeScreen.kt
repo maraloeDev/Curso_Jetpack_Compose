@@ -116,7 +116,7 @@ fun HomeScreen(onNavigateToLogin: () -> Unit) {
                     fontWeight = FontWeight.Bold
                 )
             }
-            Spacer(Modifier.height(10.dp))
+            Spacer(Modifier.height(height = 10.dp))
             Text(
                 modifier = Modifier.padding(start = 30.dp, end = 30.dp),
                 text = "Al registrarte, aceptas los Terminos, la politica\n de privacidad y la Politica de cookies",
@@ -136,12 +136,12 @@ fun HomeScreen(onNavigateToLogin: () -> Unit) {
                     fontSize = 15.sp
                 )
                 Text(
+                    modifier = Modifier
+                        .clickable { onNavigateToLogin() },
                     text = "Inicia Sesión",
                     color = Color(0xFF1DA1F2), // Azul de Twitter
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .clickable { onNavigateToLogin() }
+                    fontSize = 15.sp
+
                 )
             }
         }

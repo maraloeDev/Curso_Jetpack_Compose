@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.maraloedev.twitter.view.auth.forgotPassword.ForgotPasswordScreen
 import com.maraloedev.twitter.view.auth.login.LoginScreen
 import com.maraloedev.twitter.view.home.HomeScreen
 
@@ -17,7 +18,15 @@ fun NavigationWrapper() {
         }
 
         composable<Login> {
-            LoginScreen(onNavigateToHome = { navController.navigate(route = Home) })
+            LoginScreen(
+                onNavigateToHome = { navController.navigate(route = Home) },
+                onNavigateToForgotPassword = { navController.navigate(route = ForgotPassword) }
+            )
+        }
+
+        composable<ForgotPassword> {
+            ForgotPasswordScreen(onNavigateToHome = { navController.navigate(route = Home) })
+
         }
     }
 }

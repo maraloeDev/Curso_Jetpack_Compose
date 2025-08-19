@@ -1,10 +1,9 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
-package com.maraloedev.twitter.view.auth.login
+package com.maraloedev.twitter.view.auth.forgotPassword
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,30 +31,29 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maraloedev.twitter.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(
-    loginViewModel: LoginViewModel = viewModel(),
-    onNavigateToHome: () -> Unit,
-    onNavigateToForgotPassword: () -> Unit
+fun ForgotPasswordScreen(
+    forgotPasswordViewModel: ForgotPasswordViewModel = viewModel(),
+    onNavigateToHome: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
-    val state by loginViewModel.state.collectAsState()
-
+    val state by forgotPasswordViewModel.state.collectAsState()
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues = paddingValues)
-                .pointerInput(Unit) {
+                .pointerInput(key1 = Unit) {
                     detectTapGestures { focusManager.clearFocus() }
                 }
-                .padding(10.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(all = 10.dp),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -66,76 +64,55 @@ fun LoginScreen(
                     imageVector = Icons.Default.Close,
                     contentDescription = ""
                 )
-                Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.weight(weight = 1f))
                 Image(
-                    modifier = Modifier.size(25.dp),
+                    modifier = Modifier.size(size = 25.dp),
                     painter = painterResource(id = R.drawable.iconx),
                     contentDescription = "Logo X"
                 )
-                Spacer(modifier = Modifier.weight(1.15f))
+                Spacer(modifier = Modifier.weight(weight = 1.15f))
             }
-            Spacer(Modifier.height(height = 50.dp))
-
+            Spacer(Modifier.height(height = 30.dp))
             Text(
-                modifier = Modifier.padding(end = 80.dp),
-                text = "Para empezar,\nintroduce tu telefono,\ncorreo electrónico o\n@nombredeusuario",
+                modifier = Modifier.padding(all = 3.dp),
+                text = "Encuentra tu cuenta de X",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
-                lineHeight = 32.sp
+                textAlign = TextAlign.Center
             )
-
+            Spacer(Modifier.height(height = 5.dp))
+            Text(
+                modifier = Modifier.padding(all = 3.dp),
+                text = "Introduce el correo electronico, el numero de telefono o el nombre de usuario asociados a tu cuenta para cambiar tu contraseña,",
+                textAlign = TextAlign.Justify,
+                color = Color.Gray
+            )
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = 22.dp),
+                    .padding(all = 5.dp),
                 value = state.value,
-                onValueChange = { loginViewModel.isValid(value = it) },
-                label = {
-                    Text(
-                        text = "Teléfono, correo electrónico o nombre de usuario",
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Color(0xFF6E7679)
-                    )
-                },
-                minLines = 1
-            )
-            Spacer(modifier = Modifier.height(height = 470.dp))
+                onValueChange = { forgotPasswordViewModel.isValid(value = it) },
+                minLines = 1,
+                label = { Text(text = "Correo electronico, numero de...") })
+
+            Spacer(modifier = Modifier.weight(weight = 1.15f))
 
             HorizontalDivider()
-
-            Row(modifier = Modifier.fillMaxWidth()) {
-                OutlinedButton(
-                    modifier = Modifier.padding(end = 5.dp),
-                    onClick = { onNavigateToForgotPassword() },
-                ) {
-                    Text(
-                        text = "¿Olvidaste tu contraseña?",
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-
-                Spacer(modifier = Modifier.weight(1f))
-                OutlinedButton(
-                    modifier = Modifier
-                        .padding(start = 35.dp)
-                        .fillMaxWidth(),
-                    enabled = state.isEnabled,
-                    onClick = {},
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.DarkGray,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text(
-                        text = "Siguiente",
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+            Spacer(modifier = Modifier.padding(all = 5.dp))
+            OutlinedButton(
+                modifier = Modifier.padding(start = 270.dp),
+                onClick = {},
+                enabled = state.isEnabled,
+                colors = ButtonDefaults.buttonColors(containerColor = Color(color = 0xFF646464))
+            ) {
+                Text(
+                    text = "Siguiente",
+                    fontWeight = FontWeight.ExtraBold,
+                    letterSpacing = 0.6.sp
+                )
             }
         }
+
     }
 }
