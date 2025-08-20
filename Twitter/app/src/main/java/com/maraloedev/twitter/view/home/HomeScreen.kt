@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.sp
 import com.maraloedev.twitter.R
 
 @Composable
-fun HomeScreen(onNavigateToLogin: () -> Unit) {
+fun HomeScreen(onNavigateToLogin: () -> Unit, onNavigateToCreateNewAccount: () -> Unit) {
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
@@ -106,7 +106,7 @@ fun HomeScreen(onNavigateToLogin: () -> Unit) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 30.dp, end = 30.dp),
-                onClick = {}, colors = ButtonDefaults.buttonColors(
+                onClick = { onNavigateToCreateNewAccount() }, colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Black,
                     contentColor = Color.White
                 )

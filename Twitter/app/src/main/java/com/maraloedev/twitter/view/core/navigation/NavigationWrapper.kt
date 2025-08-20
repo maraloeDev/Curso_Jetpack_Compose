@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.maraloedev.twitter.view.auth.createNewAccount.CreateNewAccountScreen
 import com.maraloedev.twitter.view.auth.forgotPassword.ForgotPasswordScreen
 import com.maraloedev.twitter.view.auth.login.LoginScreen
 import com.maraloedev.twitter.view.home.HomeScreen
@@ -12,9 +13,11 @@ import com.maraloedev.twitter.view.home.HomeScreen
 fun NavigationWrapper() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Home) {
+    NavHost(navController = navController, startDestination = CreateNewAccount) { //CHANGE!!!!!!
         composable<Home> {
-            HomeScreen(onNavigateToLogin = { navController.navigate(route = Login) })
+            HomeScreen(
+                onNavigateToLogin = { navController.navigate(route = Login) },
+                onNavigateToCreateNewAccount = { navController.navigate(CreateNewAccount) })
         }
 
         composable<Login> {
@@ -26,7 +29,10 @@ fun NavigationWrapper() {
 
         composable<ForgotPassword> {
             ForgotPasswordScreen(onNavigateToHome = { navController.navigate(route = Home) })
+        }
 
+        composable<CreateNewAccount> {
+            CreateNewAccountScreen(onNavigateToHome = { navController.navigate(route = Home) })
         }
     }
 }
