@@ -13,7 +13,7 @@ import com.maraloedev.twitter.view.home.HomeScreen
 fun NavigationWrapper() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = CreateNewAccount) { //CHANGE!!!!!!
+    NavHost(navController = navController, startDestination = Home) {
         composable<Home> {
             HomeScreen(
                 onNavigateToLogin = { navController.navigate(route = Login) },

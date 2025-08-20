@@ -26,7 +26,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -51,6 +50,23 @@ fun CreateNewAccountScreen(
     val focusManager = LocalFocusManager.current
     val state by createNewAccountViewModel.state.collectAsState()
     var isPhoneFocused by remember { mutableStateOf(false) }
+
+    var titleOtf: String = ""
+    var chanheMobile: String =""
+
+    when(state.isMailButtonEnabled) {
+        true-> {
+
+            titleOtf = "Telefono"
+            chanheMobile = "Usar correo"
+        }
+
+        false-> {
+
+            titleOtf = "Correo electronico"
+            chanheMobile = "Usar telefono"
+        }
+    }
 
 
     Scaffold { paddingValues ->
@@ -113,13 +129,15 @@ fun CreateNewAccountScreen(
                 singleLine = true
             )
 
-            OutlinedTextField(
-                modifier = Modifier
-                    .onFocusChanged { isPhoneFocused = it.isFocused },
+           OutlinedTextField(
+                modifier = Modifier.onFocusChanged { isPhoneFocused = it.isFocused },
                 value = state.value,
                 onValueChange = { createNewAccountViewModel.isValueChange(value = it) },
-                label = { Text(text = "Telefono") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                label = { Text(text = titleOtf) },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = if (state.isMailButtonEnabled) KeyboardType.Number else KeyboardType.Email
+                ),
+                singleLine = true
             )
 
             /*OutlinedTextField(
@@ -138,13 +156,13 @@ fun CreateNewAccountScreen(
 
             Row {
                 if (isPhoneFocused) {
-                    OutlinedButton(onClick = {}) {
-                        Text(text = "Usar correo")
+                    OutlinedButton(onClick = {state.isMailButtonEnabled}, enabled = state.isMailButtonEnabled) {
+                        Text(text = chanheMobile)
                     }
                 }
 
                 Spacer(modifier = Modifier.weight(weight = 1f))
-                OutlinedButton(onClick = {}) { Text(text = "Siguiente") }
+                OutlinedButton(onClick = {}, enabled = state.isMailButtonEnabled) { Text(text = "Siguiente") }
 
             }
         }

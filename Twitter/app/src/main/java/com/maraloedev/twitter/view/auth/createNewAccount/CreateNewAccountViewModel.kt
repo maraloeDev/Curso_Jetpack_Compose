@@ -29,14 +29,14 @@ class CreateNewAccountViewModel : ViewModel() {
     si no al del Mobile
      */
     fun verifyValue() {
-        val isEnabledButton = if (state.value.isMailButtonEnabled) {
+        val isEnabled = if (state.value.isEnabled) {
             isMailValid()
         } else {
             isMobileValid()
         }
 
         _uiState.update {
-            it.copy(isMailButtonEnabled = isEnabledButton)
+            it.copy(isEnabled = it.isEnabled)
         }
     }
 
@@ -51,6 +51,6 @@ data class NewAccountUi(
     val name: String = "", //valor del nombre
     val value: String = "", //valor del nombre
     val isEnabled: Boolean = false, //Boton siguiente habilitado
-    val isMailButtonEnabled: Boolean = false //Boton mail habilitado
+    val isMailButtonEnabled: Boolean = true //Boton mail habilitado
 
 )
