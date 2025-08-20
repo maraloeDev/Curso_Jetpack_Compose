@@ -51,23 +51,6 @@ fun CreateNewAccountScreen(
     val state by createNewAccountViewModel.state.collectAsState()
     var isPhoneFocused by remember { mutableStateOf(false) }
 
-    var titleOtf: String = ""
-    var chanheMobile: String =""
-
-    when(state.isMailButtonEnabled) {
-        true-> {
-
-            titleOtf = "Telefono"
-            chanheMobile = "Usar correo"
-        }
-
-        false-> {
-
-            titleOtf = "Correo electronico"
-            chanheMobile = "Usar telefono"
-        }
-    }
-
 
     Scaffold { paddingValues ->
         Column(
@@ -129,14 +112,12 @@ fun CreateNewAccountScreen(
                 singleLine = true
             )
 
-           OutlinedTextField(
+            OutlinedTextField(
                 modifier = Modifier.onFocusChanged { isPhoneFocused = it.isFocused },
                 value = state.value,
                 onValueChange = { createNewAccountViewModel.isValueChange(value = it) },
-                label = { Text(text = titleOtf) },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = if (state.isMailButtonEnabled) KeyboardType.Number else KeyboardType.Email
-                ),
+                label = { Text(text = "Telefono") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true
             )
 
@@ -156,13 +137,16 @@ fun CreateNewAccountScreen(
 
             Row {
                 if (isPhoneFocused) {
-                    OutlinedButton(onClick = {state.isMailButtonEnabled}, enabled = state.isMailButtonEnabled) {
-                        Text(text = chanheMobile)
+                    OutlinedButton(onClick = {}) {
+                        Text(text = "Usar correo")
                     }
                 }
 
                 Spacer(modifier = Modifier.weight(weight = 1f))
-                OutlinedButton(onClick = {}, enabled = state.isMailButtonEnabled) { Text(text = "Siguiente") }
+                OutlinedButton(
+                    onClick = {},
+                    enabled = state.isEnabled
+                ) { Text(text = "Siguiente") }
 
             }
         }

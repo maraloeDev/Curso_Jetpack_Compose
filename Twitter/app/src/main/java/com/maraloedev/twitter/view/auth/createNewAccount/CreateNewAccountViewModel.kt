@@ -36,7 +36,7 @@ class CreateNewAccountViewModel : ViewModel() {
         }
 
         _uiState.update {
-            it.copy(isEnabled = it.isEnabled)
+            it.copy(isEnabled = isEnabled)
         }
     }
 
