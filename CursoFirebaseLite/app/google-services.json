@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "681732197269",
+    "project_id": "fir-lite-aea22",
+    "storage_bucket": "fir-lite-aea22.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681732197269:android:c7089b88310fc933f0049c",
+        "android_client_info": {
+          "package_name": "com.maraloedev.cursofirebaselite"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU1AAEZhFToUveTZHJjZrAFOoS-R0fGy0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
