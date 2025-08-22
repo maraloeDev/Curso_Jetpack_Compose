@@ -29,38 +29,53 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.maraloedev.cursofirebaselite.R
 
+/**
+ * Pantalla de inicio de sesión.
+ * @param onNavigateToHome Navega a la pantalla principal.
+ * @param onNavigateToRegister Navega a la pantalla de registro.
+ * @param onNavigateToMail Navega a la pantalla de login por correo.
+ */
 @Composable
-fun LoginScreen(onNavigateToHome: () -> Unit, onNavigateToRegister: () -> Unit, onNavigateToMail: () -> Unit) {
-
+fun LoginScreen(
+    onNavigateToHome: () -> Unit,
+    onNavigateToRegister: () -> Unit,
+    onNavigateToMail: () -> Unit
+) {
+    // Estructura principal con Scaffold para manejar el padding del sistema
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
-                .background(Color(color = 0xFF111111)),
+                .background(Color(0xFF111111)), // Fondo oscuro
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
 
+            // Icono de retroceso, alineado a la izquierda
             Icon(
                 modifier = Modifier
                     .clickable { onNavigateToHome() }
                     .align(Alignment.Start)
                     .padding(all = 30.dp)
-                    .size(size = 30.dp),
+                    .size(30.dp),
                 painter = painterResource(id = R.drawable.ic_back_24),
                 contentDescription = "",
                 tint = Color.White
             )
-            Spacer(Modifier.height(height = 20.dp))
+
+            Spacer(Modifier.height(20.dp))
+
+            // Logo de la app
             Image(
                 modifier = Modifier
                     .background(Color.Black)
-                    .size(size = 60.dp),
+                    .size(60.dp),
                 painter = painterResource(id = R.drawable.spotify),
                 contentDescription = "Logo Spotify"
             )
 
+            // Título de la pantalla
             Text(
                 text = "Iniciar sesión en\nSpotify",
                 textAlign = TextAlign.Center,
@@ -69,15 +84,17 @@ fun LoginScreen(onNavigateToHome: () -> Unit, onNavigateToRegister: () -> Unit, 
                 fontSize = 38.sp
             )
 
+            // Column para los botones de login
             Column {
+                // Botón para continuar con correo
                 OutlinedButton(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 40.dp, end = 40.dp)
-                        .size(size = 50.dp),
+                        .size(50.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
-                        contentColor = Color(color = 0xFF111111),
-                        containerColor = Color(color = 0xFF1CD35D)
+                        contentColor = Color(0xFF111111),
+                        containerColor = Color(0xFF1CD35D)
                     ),
                     onClick = { onNavigateToMail() }
                 ) {
@@ -87,11 +104,11 @@ fun LoginScreen(onNavigateToHome: () -> Unit, onNavigateToRegister: () -> Unit, 
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Image(
-                            modifier = Modifier.size(size = 20.dp),
+                            modifier = Modifier.size(20.dp),
                             painter = painterResource(id = R.drawable.mail),
                             contentDescription = ""
                         )
-                        Spacer(Modifier.weight(weight = 1f))
+                        Spacer(Modifier.weight(1f))
                         Text(
                             modifier = Modifier.padding(end = 50.dp),
                             text = "Continuar con correo",
@@ -100,31 +117,32 @@ fun LoginScreen(onNavigateToHome: () -> Unit, onNavigateToRegister: () -> Unit, 
                         )
                     }
                 }
-                Spacer(modifier = Modifier.height(height = 10.dp))
 
+                Spacer(modifier = Modifier.height(10.dp))
 
+                // Botón para continuar con Google
                 OutlinedButton(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 40.dp, end = 40.dp)
-                        .size(size = 50.dp),
+                        .size(50.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
                         containerColor = Color.Black
                     ),
-                    onClick = { /*REGISTRO GOOGLE*/ }) {
-
+                    onClick = { /*REGISTRO GOOGLE*/ }
+                ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Image(
-                            modifier = Modifier.size(size = 20.dp),
+                            modifier = Modifier.size(20.dp),
                             painter = painterResource(id = R.drawable.google),
                             contentDescription = "Logo Google"
                         )
-                        Spacer(Modifier.weight(weight = 1f))
+                        Spacer(Modifier.weight(1f))
                         Text(
                             modifier = Modifier.padding(end = 55.dp),
                             text = "Continuar con google",
@@ -133,29 +151,32 @@ fun LoginScreen(onNavigateToHome: () -> Unit, onNavigateToRegister: () -> Unit, 
                         )
                     }
                 }
-                Spacer(modifier = Modifier.height(height = 10.dp))
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Botón para continuar con Facebook
                 OutlinedButton(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 40.dp, end = 40.dp)
-                        .size(size = 50.dp),
+                        .size(50.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
                         containerColor = Color.Black
                     ),
-                    onClick = { /*REGISTRO FACEBOOK*/ }) {
-
+                    onClick = { /*REGISTRO FACEBOOK*/ }
+                ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Image(
-                            modifier = Modifier.size(size = 20.dp),
+                            modifier = Modifier.size(20.dp),
                             painter = painterResource(id = R.drawable.facebook),
                             contentDescription = "Logo Google"
                         )
-                        Spacer(Modifier.weight(weight = 1f))
+                        Spacer(Modifier.weight(1f))
                         Text(
                             modifier = Modifier.padding(end = 55.dp),
                             text = "Continuar con Facebook",
@@ -166,6 +187,8 @@ fun LoginScreen(onNavigateToHome: () -> Unit, onNavigateToRegister: () -> Unit, 
                 }
 
                 Spacer(Modifier.padding(top = 50.dp))
+
+                // Sección para registro si no tiene cuenta
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -185,10 +208,9 @@ fun LoginScreen(onNavigateToHome: () -> Unit, onNavigateToRegister: () -> Unit, 
                         )
                     }
                 }
-                Spacer(Modifier.height(height = 50.dp))
-            }
 
+                Spacer(Modifier.height(50.dp))
+            }
         }
     }
-
 }

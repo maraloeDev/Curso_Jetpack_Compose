@@ -25,26 +25,39 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.maraloedev.cursofirebaselite.R
 
+/**
+ * Pantalla principal de bienvenida.
+ * @param onNavigateToRegister Navega a la pantalla de registro.
+ * @param onNavigateToLoginScreen Navega a la pantalla de inicio de sesión.
+ */
 @Composable
-fun HomeScreen(onNavigateToRegister: () -> Unit, onNavigateToLoginScreen: () -> Unit) {
+fun HomeScreen(
+    onNavigateToRegister: () -> Unit,
+    onNavigateToLoginScreen: () -> Unit
+) {
+    // Scaffold para manejar el padding del sistema y la estructura base
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
-                .background(Color(color = 0xFF111111)),
+                .background(Color(0xFF111111)), // Fondo oscuro
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Spacer(Modifier.height(height = 240.dp))
+            // Espaciado superior para centrar el contenido
+            Spacer(Modifier.height(240.dp))
+
+            // Logo de la aplicación
             Image(
                 modifier = Modifier
                     .background(Color.Black)
-                    .size(size = 60.dp),
+                    .size(60.dp),
                 painter = painterResource(id = R.drawable.spotify),
                 contentDescription = "Logo Spotify"
             )
 
+            // Título principal
             Text(
                 text = "Millones de canciones.\nGratis en Spotify.",
                 textAlign = TextAlign.Center,
@@ -53,42 +66,51 @@ fun HomeScreen(onNavigateToRegister: () -> Unit, onNavigateToLoginScreen: () -> 
                 fontSize = 38.sp
             )
 
-            Spacer(Modifier.height(height = 100.dp))
+            // Espaciado entre el título y los botones
+            Spacer(Modifier.height(100.dp))
 
+            // Column para los botones de acción
             Column {
+                // Botón para registrarse
                 OutlinedButton(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 40.dp, end = 40.dp)
-                        .size(size = 50.dp),
+                        .size(50.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color(0xFF111111),
-                        containerColor = Color(color = 0xFF1CD35D)
+                        containerColor = Color(0xFF1CD35D)
                     ),
-                    onClick = { onNavigateToRegister() }) {
+                    onClick = { onNavigateToRegister() }
+                ) {
                     Text(
-                        text = "Registrarte gratis", fontSize = 15.sp,
+                        text = "Registrarte gratis",
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold
                     )
                 }
-                Spacer(modifier = Modifier.height(height = 10.dp))
+                Spacer(modifier = Modifier.height(10.dp))
+                // Botón para iniciar sesión
                 OutlinedButton(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 40.dp, end = 40.dp)
-                        .size(size = 50.dp),
+                        .size(50.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
                         containerColor = Color.Black
                     ),
-                    onClick = { onNavigateToLoginScreen() }) {
+                    onClick = { onNavigateToLoginScreen() }
+                ) {
                     Text(
-                        text = "Iniciar sesión", fontSize = 15.sp,
+                        text = "Iniciar sesión",
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold
                     )
                 }
             }
-            Spacer(Modifier.height(height = 30.dp))
+            // Espaciado inferior
+            Spacer(Modifier.height(30.dp))
         }
     }
 }

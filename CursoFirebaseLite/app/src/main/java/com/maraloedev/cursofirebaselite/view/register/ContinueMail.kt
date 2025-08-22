@@ -29,33 +29,39 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.maraloedev.cursofirebaselite.R
 
+/**
+ * Pantalla para ingresar el correo electrónico durante el registro.
+ * @param onNavigateToRegister Navega de regreso a la pantalla de registro.
+ */
 @Composable
 fun ContinueMail(onNavigateToRegister: () -> Unit) {
+    // Scaffold para manejar el padding del sistema y la estructura base
     Scaffold { paddingValues ->
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Color(color = 0xFF111111)),
+                .background(Color(0xFF111111)), // Fondo oscuro
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
 
+            // Fila superior con botón de retroceso y título
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     modifier = Modifier
-                        .clickable { onNavigateToRegister() }
+                        .clickable { onNavigateToRegister() } // Acción de retroceso
                         .padding(all = 30.dp)
-                        .size(size = 30.dp),
+                        .size(30.dp),
                     painter = painterResource(id = R.drawable.ic_back_24),
-                    contentDescription = "",
+                    contentDescription = "", // Descripción accesible vacía
                     tint = Color.White
                 )
-                Spacer(Modifier.width(width = 50.dp))
+                Spacer(Modifier.width(50.dp))
 
                 Text(
                     text = "Crear cuenta",
@@ -66,18 +72,23 @@ fun ContinueMail(onNavigateToRegister: () -> Unit) {
             }
 
             Spacer(Modifier.padding(top = 30.dp))
+
+            // Contenido principal de la pantalla
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(all = 10.dp)
             ) {
 
+                // Título del campo de correo
                 Text(
                     text = "¿Cuál es tu correo electronico?",
                     fontSize = 38.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
+
+                // Campo de texto para ingresar el correo
                 OutlinedTextField(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -85,16 +96,19 @@ fun ContinueMail(onNavigateToRegister: () -> Unit) {
                     value = "",
                     onValueChange = {},
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = Color(color = 0xFF585858),
-                        focusedBorderColor = Color(color = 0xFF585858),
-                        unfocusedLabelColor = Color(color = 0xFF292929)
+                        focusedContainerColor = Color(0xFF585858),
+                        focusedBorderColor = Color(0xFF585858),
+                        unfocusedLabelColor = Color(0xFF292929)
                     ),
                     supportingText = {
                         Text(
                             text = "Luego tendras que confirmar esta dirección",
                             color = Color.White
                         )
-                    })
+                    }
+                )
+
+                // Botón para continuar con el registro
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -103,13 +117,13 @@ fun ContinueMail(onNavigateToRegister: () -> Unit) {
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .padding(top = 16.dp)
-                            .height(height = 55.dp),
+                            .height(55.dp),
                         onClick = { },
                         colors = ButtonDefaults.outlinedButtonColors(
                             contentColor = Color.Black,
                             containerColor = Color.White,
                             disabledContentColor = Color.Black,
-                            disabledContainerColor = Color(color = 0xFF585858)
+                            disabledContainerColor = Color(0xFF585858)
                         )
                     ) {
                         Text(text = "Siguiente", fontWeight = FontWeight.Bold)

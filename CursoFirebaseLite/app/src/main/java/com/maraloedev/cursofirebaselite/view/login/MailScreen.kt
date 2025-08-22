@@ -32,20 +32,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.maraloedev.cursofirebaselite.R
 
+/**
+ * Pantalla de inicio de sesión con correo y contraseña.
+ * @param onNavigateToHome Navega a la pantalla principal.
+ * @param onNavigateToLoginWithoutPassword Navega a la pantalla de login sin contraseña.
+ */
 @Composable
-fun MailScreen(onNavigateToHome: () -> Unit) {
-
+fun MailScreen(
+    onNavigateToHome: () -> Unit,
+    onNavigateToLoginWithoutPassword: () -> Unit
+) {
+    // Scaffold para manejar el padding del sistema y la estructura base
     Scaffold { paddingValues ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Color(color = 0xFF111111)),
+                .background(Color(0xFF111111)), // Fondo oscuro
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-
+            // Fila superior con botón de retroceso
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -54,21 +61,23 @@ fun MailScreen(onNavigateToHome: () -> Unit) {
                     modifier = Modifier
                         .clickable { onNavigateToHome() }
                         .padding(all = 30.dp)
-                        .size(size = 30.dp),
+                        .size(30.dp),
                     painter = painterResource(id = R.drawable.ic_back_24),
-                    contentDescription = "",
+                    contentDescription = "", // Descripción accesible vacía
                     tint = Color.White
                 )
-                Spacer(Modifier.width(width = 50.dp))
+                Spacer(Modifier.width(50.dp))
             }
 
             Spacer(Modifier.padding(top = 30.dp))
+
+            // Contenido principal de la pantalla
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(all = 10.dp)
             ) {
-
+                // Campo de correo o usuario
                 Text(
                     text = "Correo electrónico o nombre de usuario",
                     fontSize = 38.sp,
@@ -82,12 +91,14 @@ fun MailScreen(onNavigateToHome: () -> Unit) {
                     value = "",
                     onValueChange = {},
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = Color(color = 0xFF585858),
-                        focusedBorderColor = Color(color = 0xFF585858),
-                        unfocusedLabelColor = Color(color = 0xFF292929)
-                    ))
+                        focusedContainerColor = Color(0xFF585858),
+                        focusedBorderColor = Color(0xFF585858),
+                        unfocusedLabelColor = Color(0xFF292929)
+                    )
+                )
                 Spacer(Modifier.padding(top = 20.dp))
 
+                // Campo de contraseña
                 Text(
                     text = "Contraseña",
                     fontSize = 38.sp,
@@ -101,10 +112,13 @@ fun MailScreen(onNavigateToHome: () -> Unit) {
                     value = "",
                     onValueChange = {},
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = Color(color = 0xFF585858),
-                        focusedBorderColor = Color(color = 0xFF585858),
-                        unfocusedLabelColor = Color(color = 0xFF292929)
-                    ))
+                        focusedContainerColor = Color(0xFF585858),
+                        focusedBorderColor = Color(0xFF585858),
+                        unfocusedLabelColor = Color(0xFF292929)
+                    )
+                )
+
+                // Botón para iniciar sesión y opción de login sin contraseña
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -113,28 +127,29 @@ fun MailScreen(onNavigateToHome: () -> Unit) {
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .padding(top = 16.dp)
-                            .height(height = 55.dp),
+                            .height(55.dp),
                         onClick = { },
                         colors = ButtonDefaults.outlinedButtonColors(
                             contentColor = Color.Black,
                             containerColor = Color.White,
                             disabledContentColor = Color.Black,
-                            disabledContainerColor = Color(color = 0xFF585858)
+                            disabledContainerColor = Color(0xFF585858)
                         )
                     ) {
                         Text(text = "Iniciar sesion", fontWeight = FontWeight.Bold)
                     }
-                        Spacer(Modifier.padding(top = 22.dp))
+                    Spacer(Modifier.padding(top = 22.dp))
+                    // Botón para iniciar sesión sin contraseña
                     TextButton(
-                        border = BorderStroke(width = 1.dp, color = Color(color = 0xFF222222)),
-                        shape = RoundedCornerShape(size = 30.dp),
-                        onClick = {}) {
+                        border = BorderStroke(1.dp, Color(0xFF222222)),
+                        shape = RoundedCornerShape(30.dp),
+                        onClick = { onNavigateToLoginWithoutPassword() }
+                    ) {
                         Text(
                             text = "Iniciar sesion sin contraseña",
                             fontWeight = FontWeight.Bold,
                             color = Color.White
-
-                            )
+                        )
                     }
                 }
             }
