@@ -4,45 +4,33 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.maraloedev.cursofirebaselite.ui.theme.CursoFirebaseLiteTheme
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.maraloedev.cursofirebaselite.view.core.navigation.NavigationWrapper
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        auth = Firebase.auth
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            CursoFirebaseLiteTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(paddingValues = innerPadding)
-                    )
-                }
-            }
+            NavigationWrapper(auth)
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier.clickable{ throw RuntimeException("Hola") }
-    )
-}
+    // Si al iniciar la app, si esta logueado, entonces, vas a login, si no, vas a la Home
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CursoFirebaseLiteTheme {
-        Greeting("Android")
+        if (currentUser!=null) {
+            //navegas al login
+        } else {
+            //navegas a la Home
+        }
     }
 }

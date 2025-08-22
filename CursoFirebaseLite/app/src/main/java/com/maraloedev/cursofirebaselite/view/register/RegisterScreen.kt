@@ -1,0 +1,165 @@
+package com.maraloedev.cursofirebaselite.view.register
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.maraloedev.cursofirebaselite.R
+
+@Composable
+fun RegisterScreen(
+    onNavigateToHome: () -> Unit,
+    onNavigateToContinueMail: () -> Unit,
+    onNavigateToLoginScreen: () -> Unit
+) {
+
+    Scaffold { paddingValues ->
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+                .background(Color(color = 0xFF111111)),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+
+            Icon(
+                modifier = Modifier
+                    .clickable { onNavigateToHome() }
+                    .align(Alignment.Start)
+                    .padding(all = 30.dp)
+                    .size(size = 30.dp),
+                painter = painterResource(id = R.drawable.ic_back_24),
+                contentDescription = "",
+                tint = Color.White
+            )
+            Spacer(Modifier.height(height = 20.dp))
+            Image(
+                modifier = Modifier
+                    .background(Color.Black)
+                    .size(size = 60.dp),
+                painter = painterResource(id = R.drawable.spotify),
+                contentDescription = "Logo Spotify"
+            )
+
+            Text(
+                text = "Registrate para\nempezar a escuchar\ncontenido",
+                textAlign = TextAlign.Center,
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 38.sp
+            )
+
+            Column {
+                OutlinedButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 40.dp, end = 40.dp)
+                        .size(size = 50.dp),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = Color(color = 0xFF111111),
+                        containerColor = Color(color = 0xFF1CD35D)
+                    ),
+                    onClick = { onNavigateToContinueMail() }
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Image(
+                            modifier = Modifier.size(size = 20.dp),
+                            painter = painterResource(id = R.drawable.mail),
+                            contentDescription = ""
+                        )
+                        Spacer(Modifier.weight(weight = 1f))
+                        Text(
+                            modifier = Modifier.padding(end = 50.dp),
+                            text = "Continuar con correo",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(height = 10.dp))
+
+
+                OutlinedButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 40.dp, end = 40.dp)
+                        .size(size = 50.dp),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = Color.White,
+                        containerColor = Color.Black
+                    ),
+                    onClick = { }) {
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Image(
+                            modifier = Modifier.size(size = 20.dp),
+                            painter = painterResource(id = R.drawable.google),
+                            contentDescription = "Logo Google"
+                        )
+                        Spacer(Modifier.weight(weight = 1f))
+                        Text(
+                            modifier = Modifier.padding(end = 55.dp),
+                            text = "Continuar con google",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                        )
+                    }
+                }
+
+                Spacer(Modifier.padding(top = 50.dp))
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "¿Ya tienes una cuenta?",
+                        color = Color.White,
+                        fontSize = 15.sp
+                    )
+                    TextButton(onClick = { onNavigateToLoginScreen() }) {
+                        Text(
+                            text = "Iniciar sesión",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                    }
+                }
+                Spacer(Modifier.height(height = 50.dp))
+            }
+        }
+    }
+}
