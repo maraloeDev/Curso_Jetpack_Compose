@@ -12,7 +12,7 @@ object Register
 
 // Objeto que representa la pantalla para continuar con correo
 @Serializable
-object ContinueMail
+object CreateNewAccountScreen
 
 // Objeto que representa la pantalla de ingreso por correo
 @Serializable

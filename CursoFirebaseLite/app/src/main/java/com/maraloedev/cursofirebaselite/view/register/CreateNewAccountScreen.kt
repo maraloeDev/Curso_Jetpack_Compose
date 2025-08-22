@@ -27,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.auth.FirebaseAuth
 import com.maraloedev.cursofirebaselite.R
 
 /**
@@ -34,7 +35,7 @@ import com.maraloedev.cursofirebaselite.R
  * @param onNavigateToRegister Navega de regreso a la pantalla de registro.
  */
 @Composable
-fun ContinueMail(onNavigateToRegister: () -> Unit) {
+fun CreateNewAccountScreen(onNavigateToRegister: () -> Unit) {
     // Scaffold para manejar el padding del sistema y la estructura base
     Scaffold { paddingValues ->
 

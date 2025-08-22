@@ -9,7 +9,7 @@ import com.maraloedev.cursofirebaselite.view.home.HomeScreen
 import com.maraloedev.cursofirebaselite.view.login.LoginScreen
 import com.maraloedev.cursofirebaselite.view.login.LoginWithoutPasswordScreen
 import com.maraloedev.cursofirebaselite.view.login.MailScreen
-import com.maraloedev.cursofirebaselite.view.register.ContinueMail
+import com.maraloedev.cursofirebaselite.view.register.CreateNewAccountScreen
 import com.maraloedev.cursofirebaselite.view.register.RegisterScreen
 
 /**
@@ -23,7 +23,7 @@ fun NavigationWrapper(auth: FirebaseAuth) {
     val navController = rememberNavController()
 
     // Define el NavHost con la pantalla de inicio y las rutas de navegación.
-    NavHost(navController = navController, startDestination = Home) { //CHANGE
+    NavHost(navController = navController, startDestination = Home) {
 
         // Pantalla principal (Home)
         composable<Home> {
@@ -37,14 +37,14 @@ fun NavigationWrapper(auth: FirebaseAuth) {
         composable<Register> {
             RegisterScreen(
                 onNavigateToHome = { navController.navigate(route = Home) },
-                onNavigateToContinueMail = { navController.navigate(route = ContinueMail) },
+                onNavigateToContinueMail = { navController.navigate(route = CreateNewAccountScreen) },
                 onNavigateToLoginScreen = { navController.navigate(route = Login) }
             )
         }
 
         // Pantalla para continuar con correo
-        composable<ContinueMail> {
-            ContinueMail(
+        composable<CreateNewAccountScreen> {
+            CreateNewAccountScreen(
                 onNavigateToRegister = { navController.navigate(route = Register) }
             )
         }
@@ -52,6 +52,7 @@ fun NavigationWrapper(auth: FirebaseAuth) {
         // Pantalla de login
         composable<Login> {
             LoginScreen(
+
                 onNavigateToHome = { navController.navigate(route = Home) },
                 onNavigateToMail = { navController.navigate(route = MailScreen) },
                 onNavigateToRegister = { navController.navigate(route = Register) }
@@ -61,13 +62,14 @@ fun NavigationWrapper(auth: FirebaseAuth) {
         // Pantalla de login sin contraseña
         composable<LoginWithoutPassword> {
             LoginWithoutPasswordScreen(
-                onNavigateToContinueMail = { navController.navigate(ContinueMail) }
+                onNavigateToContinueMail = { navController.navigate(CreateNewAccountScreen) }
             )
         }
 
         // Pantalla de ingreso por correo
         composable<MailScreen> {
             MailScreen(
+                auth = auth,
                 onNavigateToHome = { navController.navigate(route = Home) },
                 onNavigateToLoginWithoutPassword = { navController.navigate(route = LoginWithoutPassword) }
             )

@@ -30,6 +30,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.maraloedev.cursofirebaselite.R
 
 /**
@@ -39,6 +42,7 @@ import com.maraloedev.cursofirebaselite.R
  */
 @Composable
 fun MailScreen(
+    auth: FirebaseAuth = Firebase.auth,
     onNavigateToHome: () -> Unit,
     onNavigateToLoginWithoutPassword: () -> Unit
 ) {
@@ -123,12 +127,20 @@ fun MailScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    OutlinedButton(
+
+                    /*TODO CAMBIAR LOS KEY POR LOS VM*/
+                    /*OutlinedButton(
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .padding(top = 16.dp)
                             .height(55.dp),
-                        onClick = { },
+                        onClick = { auth.signInWithEmailAndPassword(*//*mail CAMBIAR POR VM*//*, *//*password  CAMBIAR POR VM*//*).addOnCompleteListener { task ->
+                            if (task.isSuccessful) { //Si esta bien
+                                //Navegar
+                            } else {
+                                //Error
+                            }
+                        } }, //HACER LOGIN CON USUARIO Y CONTRASEÑA
                         colors = ButtonDefaults.outlinedButtonColors(
                             contentColor = Color.Black,
                             containerColor = Color.White,
@@ -137,7 +149,7 @@ fun MailScreen(
                         )
                     ) {
                         Text(text = "Iniciar sesion", fontWeight = FontWeight.Bold)
-                    }
+                    }*/
                     Spacer(Modifier.padding(top = 22.dp))
                     // Botón para iniciar sesión sin contraseña
                     TextButton(
