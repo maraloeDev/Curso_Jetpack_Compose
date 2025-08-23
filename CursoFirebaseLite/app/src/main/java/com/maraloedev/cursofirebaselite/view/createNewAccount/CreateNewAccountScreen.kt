@@ -37,47 +37,46 @@ import com.google.firebase.auth.auth
 import com.maraloedev.cursofirebaselite.R
 
 /**
- * Pantalla para ingresar el correo electrónico durante el registro.
- * @param onNavigateToRegister Navega de regreso a la pantalla de registro.
+ * Pantalla para crear una nueva cuenta con correo y contraseña.
+ * @param auth Instancia de FirebaseAuth para registrar usuarios.
+ * @param createNewAccountViewModel ViewModel que gestiona el estado de la pantalla.
+ * @param onNavigateToRegister Acción para volver a la pantalla de registro.
  */
-
 @Composable
 fun CreateNewAccountScreen(
     auth: FirebaseAuth = Firebase.auth,
     createNewAccountViewModel: CreateNewAccountViewModel = viewModel(),
     onNavigateToRegister: () -> Unit
 ) {
-
+    // Observa el estado actual del ViewModel
     val state by createNewAccountViewModel.state.collectAsState()
 
-    // Scaffold para manejar el padding del sistema y la estructura base
+    // Estructura base de la pantalla con Scaffold
     Scaffold { paddingValues ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Color(color = 0xFF111111)), // Fondo oscuro
+                .background(Color(0xFF111111)), // Fondo oscuro
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
 
-            // Fila superior con botón de retroceso y título
+            // Fila superior: botón de retroceso y título
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     modifier = Modifier
-                        .clickable { onNavigateToRegister() } // Acción de retroceso
-                        .padding(all = 30.dp)
+                        .clickable { onNavigateToRegister() } // Navega hacia atrás
+                        .padding(30.dp)
                         .size(30.dp),
                     painter = painterResource(id = R.drawable.ic_back_24),
-                    contentDescription = "", // Descripción accesible vacía
+                    contentDescription = "", // Accesibilidad: descripción vacía
                     tint = Color.White
                 )
                 Spacer(Modifier.width(50.dp))
-
                 Text(
                     text = "Crear cuenta",
                     fontWeight = FontWeight.Bold,
@@ -88,64 +87,59 @@ fun CreateNewAccountScreen(
 
             Spacer(Modifier.padding(top = 30.dp))
 
-            // Contenido principal de la pantalla
+            // Contenido principal: campos de correo y contraseña
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(all = 10.dp)
+                    .padding(10.dp)
             ) {
-
-                // Título del campo de correo
+                // Título y campo de correo electrónico
                 Text(
                     text = "¿Cuál es tu correo electronico?",
                     fontSize = 38.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
-
-                // Campo de texto para ingresar el correo
                 OutlinedTextField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 5.dp),
                     value = state.mail,
-                    onValueChange = { createNewAccountViewModel.changeMail(mail = it) },
+                    onValueChange = { createNewAccountViewModel.changeMail(it) },
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = Color(color = 0xFF585858),
-                        focusedBorderColor = Color(color = 0xFF585858),
-                        unfocusedLabelColor = Color(color = 0xFF292929)
+                        focusedContainerColor = Color(0xFF585858),
+                        focusedBorderColor = Color(0xFF585858),
+                        unfocusedLabelColor = Color(0xFF292929)
                     ),
                     supportingText = {
                         Text(
-                            text = "Luego tendras que confirmar esta dirección",
+                            text = "Luego tendrás que confirmar esta dirección",
                             color = Color.White
                         )
                     }
                 )
 
-                // Título del campo de contraseña
+                // Título y campo de contraseña
                 Text(
                     text = "¿Cuál es tu contraseña?",
                     fontSize = 38.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
-
-                // Campo de texto para ingresar el correo
                 OutlinedTextField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 5.dp),
                     value = state.password,
-                    onValueChange = { createNewAccountViewModel.changePassword(password = it) },
+                    onValueChange = { createNewAccountViewModel.changePassword(it) },
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = Color(color = 0xFF585858),
-                        focusedBorderColor = Color(color = 0xFF585858),
-                        unfocusedLabelColor = Color(color = 0xFF292929)
+                        focusedContainerColor = Color(0xFF585858),
+                        focusedBorderColor = Color(0xFF585858),
+                        unfocusedLabelColor = Color(0xFF292929)
                     ),
                 )
 
-                // Botón para continuar con el registro
+                // Botón para crear la cuenta
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -154,24 +148,23 @@ fun CreateNewAccountScreen(
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .padding(top = 16.dp)
-                            .height(height = 55.dp),
+                            .height(55.dp),
                         onClick = {
+                            // Intenta crear el usuario con Firebase
                             auth.createUserWithEmailAndPassword(state.mail, state.password)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
-                                        Log.i("EDUARDO", "LOG OK")
+                                        Log.i("EDUARDO", "LOG OK") // Registro exitoso
                                     } else {
-
-                                        Log.i("EDUARDO", "LOG NO")
+                                        Log.i("EDUARDO", "LOG NO") // Error en el registro
                                     }
                                 }
                         },
-
                         colors = ButtonDefaults.outlinedButtonColors(
                             contentColor = Color.Black,
                             containerColor = Color.White,
                             disabledContentColor = Color.Black,
-                            disabledContainerColor = Color(color = 0xFF585858)
+                            disabledContainerColor = Color(0xFF585858)
                         )
                     ) {
                         Text(text = "Siguiente", fontWeight = FontWeight.Bold)

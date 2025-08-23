@@ -34,43 +34,43 @@ import com.maraloedev.cursofirebaselite.R
 
 /**
  * Pantalla para iniciar sesión sin contraseña.
- * @param onNavigateToContinueMail Navega a la pantalla para continuar con correo.
+ * @param onNavigateToContinueMail Acción para navegar a la pantalla de ingreso por correo.
  */
 @Composable
 fun LoginWithoutPasswordScreen(
     LoginWithoutPasswordViewModel: LoginWithoutPasswordViewModel = viewModel(),
     onNavigateToContinueMail: () -> Unit
 ) {
-
+    // Observa el estado actual del ViewModel
     val state by LoginWithoutPasswordViewModel.state.collectAsState()
 
-    // Scaffold para manejar el padding del sistema y la estructura base
+    // Scaffold proporciona la estructura base y maneja el padding del sistema
     Scaffold { paddingValues ->
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Color(color = 0xFF111111)), // Fondo oscuro
+                .background(Color(0xFF111111)), // Fondo oscuro
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
 
-            // Fila superior con botón de retroceso y título
+            // Fila superior: botón de retroceso y título
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     modifier = Modifier
-                        .clickable { onNavigateToContinueMail() }
-                        .padding(all = 30.dp)
-                        .size(size = 30.dp),
+                        .clickable { onNavigateToContinueMail() } // Navega hacia atrás
+                        .padding(30.dp)
+                        .size(30.dp),
                     painter = painterResource(id = R.drawable.ic_back_24),
-                    contentDescription = "", // Descripción accesible vacía
+                    contentDescription = "", // Accesibilidad: descripción vacía
                     tint = Color.White
                 )
-                Spacer(Modifier.width(width = 10.dp))
+                Spacer(Modifier.width(10.dp))
 
                 Text(
                     text = "Iniciar sesión sin contraseña",
@@ -82,11 +82,11 @@ fun LoginWithoutPasswordScreen(
 
             Spacer(Modifier.padding(top = 30.dp))
 
-            // Contenido principal de la pantalla
+            // Contenido principal: campo de correo/usuario y botón
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(all = 10.dp)
+                    .padding(10.dp)
             ) {
 
                 // Título del campo de entrada
@@ -103,11 +103,11 @@ fun LoginWithoutPasswordScreen(
                         .fillMaxWidth()
                         .padding(start = 5.dp),
                     value = state.mail,
-                    onValueChange = { LoginWithoutPasswordViewModel.isMailChange(mail = it) },
+                    onValueChange = { LoginWithoutPasswordViewModel.isMailChange(it) },
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = Color(color = 0xFF585858),
-                        focusedBorderColor = Color(color = 0xFF585858),
-                        unfocusedLabelColor = Color(color = 0xFF292929)
+                        focusedContainerColor = Color(0xFF585858),
+                        focusedBorderColor = Color(0xFF585858),
+                        unfocusedLabelColor = Color(0xFF292929)
                     ),
                     supportingText = {
                         Text(
@@ -126,14 +126,14 @@ fun LoginWithoutPasswordScreen(
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .padding(top = 16.dp)
-                            .height(height = 55.dp),
-                        onClick = { },
+                            .height(55.dp),
+                        onClick = { /* Acción para enviar enlace */ },
                         enabled = state.isEnabled,
                         colors = ButtonDefaults.outlinedButtonColors(
                             contentColor = Color.Black,
                             containerColor = Color.White,
                             disabledContentColor = Color.Black,
-                            disabledContainerColor = Color(color = 0xFF585858)
+                            disabledContainerColor = Color(0xFF585858)
                         )
                     ) {
                         Text(text = "Obtener enlace", fontWeight = FontWeight.Bold)

@@ -9,28 +9,41 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.maraloedev.cursofirebaselite.view.core.navigation.NavigationWrapper
 
+/**
+ * Actividad principal de la aplicación.
+ * Inicializa la autenticación de Firebase y define la navegación principal.
+ */
 class MainActivity : ComponentActivity() {
 
+    // Instancia de autenticación de Firebase
     private lateinit var auth: FirebaseAuth
-    override fun onCreate(savedInstanceState: Bundle?) {
 
+    /**
+     * Método llamado al crear la actividad.
+     * Inicializa FirebaseAuth, habilita edge-to-edge y establece el contenido principal.
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
         auth = Firebase.auth
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            // NavigationWrapper gestiona la navegación de la app, recibiendo la instancia de auth
             NavigationWrapper(auth)
         }
     }
 
-    // Si al iniciar la app, si esta logueado, entonces, vas a login, si no, vas a la Home
+    /**
+     * Método llamado cuando la actividad pasa a primer plano.
+     * Verifica si el usuario está autenticado y decide la pantalla de inicio.
+     */
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
 
-        if (currentUser!=null) {
-            //navegas al login
+        if (currentUser != null) {
+            // Si el usuario está logueado, navega a la pantalla de login
         } else {
-            //navegas a la Home
+            // Si no hay usuario logueado, navega a la pantalla Home
         }
     }
 }

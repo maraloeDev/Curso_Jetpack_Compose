@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
 /**
- * ViewModel encargado de manejar el estado de la pantalla de registro.
- * Gestiona el correo electrónico y la habilitación del botón de continuar.
+ * ViewModel encargado de manejar el estado de la pantalla de registro de nueva cuenta.
+ * Gestiona los datos de correo y contraseña, y la habilitación del botón de continuar.
  */
 class CreateNewAccountViewModel : ViewModel() {
 
@@ -29,6 +29,10 @@ class CreateNewAccountViewModel : ViewModel() {
         verifyChanges()
     }
 
+    /**
+     * Actualiza la contraseña en el estado y verifica si el botón debe habilitarse.
+     * @param password Nueva contraseña ingresada por el usuario.
+     */
     fun changePassword(password: String) {
         _uiState.update {
             it.copy(password = password)
@@ -37,7 +41,7 @@ class CreateNewAccountViewModel : ViewModel() {
     }
 
     /**
-     * Verifica si el correo es válido y actualiza el estado de habilitación del botón.
+     * Verifica si el correo y la contraseña son válidos y actualiza el estado de habilitación del botón.
      */
     fun verifyChanges() {
         val isEnable = isMailCorrect() && isPasswordCorrect()
@@ -51,12 +55,18 @@ class CreateNewAccountViewModel : ViewModel() {
      * @return true si el correo es válido, false en caso contrario.
      */
     fun isMailCorrect(): Boolean = Patterns.EMAIL_ADDRESS.matcher(state.value.mail).matches()
-    fun isPasswordCorrect(): Boolean = state.value.password.length>=9
+
+    /**
+     * Valida que la contraseña tenga al menos 9 caracteres.
+     * @return true si la contraseña es válida, false en caso contrario.
+     */
+    fun isPasswordCorrect(): Boolean = state.value.password.length >= 9
 }
 
 /**
  * Estado de la UI para la creación de una nueva cuenta.
  * @param mail Correo electrónico ingresado.
+ * @param password Contraseña ingresada.
  * @param enable Indica si el botón de continuar debe estar habilitado.
  */
 data class CreateNewAccountUi(

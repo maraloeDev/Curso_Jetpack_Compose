@@ -27,9 +27,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.maraloedev.cursofirebaselite.R
 
 /**
@@ -40,7 +37,6 @@ import com.maraloedev.cursofirebaselite.R
  */
 @Composable
 fun LoginScreen(
-    auth: FirebaseAuth = Firebase.auth,
     onNavigateToHome: () -> Unit,
     onNavigateToRegister: () -> Unit,
     onNavigateToMail: () -> Unit
@@ -51,7 +47,7 @@ fun LoginScreen(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
-                .background(Color(0xFF111111)), // Fondo oscuro
+                .background(Color(color = 0xFF111111)), // Fondo oscuro
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -62,19 +58,19 @@ fun LoginScreen(
                     .clickable { onNavigateToHome() }
                     .align(Alignment.Start)
                     .padding(all = 30.dp)
-                    .size(30.dp),
+                    .size(size = 30.dp),
                 painter = painterResource(id = R.drawable.ic_back_24),
                 contentDescription = "",
                 tint = Color.White
             )
 
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(height = 20.dp))
 
             // Logo de la app
             Image(
                 modifier = Modifier
                     .background(Color.Black)
-                    .size(60.dp),
+                    .size(size = 60.dp),
                 painter = painterResource(id = R.drawable.spotify),
                 contentDescription = "Logo Spotify"
             )
@@ -97,8 +93,8 @@ fun LoginScreen(
                         .padding(start = 40.dp, end = 40.dp)
                         .size(50.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
-                        contentColor = Color(0xFF111111),
-                        containerColor = Color(0xFF1CD35D)
+                        contentColor = Color(color = 0xFF111111),
+                        containerColor = Color(color = 0xFF1CD35D)
                     ),
                     onClick = { onNavigateToMail() }
                 ) {
@@ -108,11 +104,11 @@ fun LoginScreen(
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Image(
-                            modifier = Modifier.size(20.dp),
+                            modifier = Modifier.size(size = 20.dp),
                             painter = painterResource(id = R.drawable.mail),
                             contentDescription = ""
                         )
-                        Spacer(Modifier.weight(1f))
+                        Spacer(Modifier.weight(weight = 1f))
                         Text(
                             modifier = Modifier.padding(end = 50.dp),
                             text = "Continuar con correo",
@@ -122,14 +118,14 @@ fun LoginScreen(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(height = 10.dp))
 
                 // Botón para continuar con Google
                 OutlinedButton(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 40.dp, end = 40.dp)
-                        .size(50.dp),
+                        .size(size = 50.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
                         containerColor = Color.Black
@@ -142,11 +138,11 @@ fun LoginScreen(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Image(
-                            modifier = Modifier.size(20.dp),
+                            modifier = Modifier.size(size = 20.dp),
                             painter = painterResource(id = R.drawable.google),
                             contentDescription = "Logo Google"
                         )
-                        Spacer(Modifier.weight(1f))
+                        Spacer(Modifier.weight(weight = 1f))
                         Text(
                             modifier = Modifier.padding(end = 55.dp),
                             text = "Continuar con google",
@@ -156,7 +152,7 @@ fun LoginScreen(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(height = 10.dp))
 
                 // Botón para continuar con Facebook
                 OutlinedButton(
@@ -176,11 +172,11 @@ fun LoginScreen(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Image(
-                            modifier = Modifier.size(20.dp),
+                            modifier = Modifier.size(size = 20.dp),
                             painter = painterResource(id = R.drawable.facebook),
                             contentDescription = "Logo Google"
                         )
-                        Spacer(Modifier.weight(1f))
+                        Spacer(Modifier.weight(weight = 1f))
                         Text(
                             modifier = Modifier.padding(end = 55.dp),
                             text = "Continuar con Facebook",
@@ -199,7 +195,7 @@ fun LoginScreen(
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "No tienes cuenta?",
+                        text = "¿No tienes cuenta?",
                         color = Color.White,
                         fontSize = 15.sp
                     )

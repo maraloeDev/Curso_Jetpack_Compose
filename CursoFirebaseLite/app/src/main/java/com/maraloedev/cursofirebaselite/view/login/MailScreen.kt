@@ -26,8 +26,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,14 +37,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import com.google.firebase.firestore.firestore
 import com.maraloedev.cursofirebaselite.R
-import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
  * Pantalla de inicio de sesión con correo y contraseña.
- * @param onNavigateToHome Navega a la pantalla principal.
- * @param onNavigateToLoginWithoutPassword Navega a la pantalla de login sin contraseña.
+ * @param auth Instancia de FirebaseAuth para autenticación.
+ * @param onNavigateToLoginScreen Acción para navegar a la pantalla anterior.
+ * @param onNavigateToLoginWithoutPassword Acción para navegar a login sin contraseña.
+ * @param mailViewModel ViewModel que gestiona el estado de la pantalla.
  */
 @Composable
 fun MailScreen(
@@ -55,10 +53,10 @@ fun MailScreen(
     onNavigateToLoginWithoutPassword: () -> Unit,
     mailViewModel: MailViewModel = viewModel()
 ) {
-
+    // Observa el estado actual del ViewModel
     val state by mailViewModel.state.collectAsState()
 
-    // Scaffold para manejar el padding del sistema y la estructura base
+    // Scaffold para la estructura base y manejo de padding del sistema
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
@@ -75,7 +73,7 @@ fun MailScreen(
             ) {
                 Icon(
                     modifier = Modifier
-                        .clickable { onNavigateToLoginScreen() }
+                        .clickable { onNavigateToLoginScreen() } // Navega hacia atrás
                         .padding(all = 30.dp)
                         .size(30.dp),
                     painter = painterResource(id = R.drawable.ic_back_24),
@@ -87,13 +85,13 @@ fun MailScreen(
 
             Spacer(Modifier.padding(top = 30.dp))
 
-            // Contenido principal de la pantalla
+            // Contenido principal: campos de correo y contraseña
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(all = 10.dp)
             ) {
-                // Campo de correo o usuario
+                // Etiqueta y campo de correo electrónico o usuario
                 Text(
                     text = "Correo electrónico o nombre de usuario",
                     fontSize = 38.sp,
@@ -114,7 +112,7 @@ fun MailScreen(
                 )
                 Spacer(Modifier.padding(top = 20.dp))
 
-                // Campo de contraseña
+                // Etiqueta y campo de contraseña
                 Text(
                     text = "Contraseña",
                     fontSize = 38.sp,
@@ -145,14 +143,14 @@ fun MailScreen(
                             .padding(top = 16.dp)
                             .height(height = 55.dp),
                         onClick = {
+                            // Intenta iniciar sesión con Firebase
                             auth.signInWithEmailAndPassword(
                                 state.mail, state.password
                             ).addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-
-                                    Log.i("EDUARDO", "REGISTRO OK")
+                                    Log.i("EDUARDO", "REGISTRO OK") // Login exitoso
                                 } else {
-                                    Log.i("EDUARDO", "REGISTRO NO")
+                                    Log.i("EDUARDO", "REGISTRO NO") // Error en login
                                 }
                             }
                         },

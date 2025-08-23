@@ -26,16 +26,16 @@ import androidx.compose.ui.unit.sp
 import com.maraloedev.cursofirebaselite.R
 
 /**
- * Pantalla principal de bienvenida.
- * @param onNavigateToRegister Navega a la pantalla de registro.
- * @param onNavigateToLoginScreen Navega a la pantalla de inicio de sesión.
+ * Pantalla principal de bienvenida de la app.
+ * @param onNavigateToRegister Acción para navegar a la pantalla de registro.
+ * @param onNavigateToLoginScreen Acción para navegar a la pantalla de inicio de sesión.
  */
 @Composable
 fun HomeScreen(
     onNavigateToRegister: () -> Unit,
     onNavigateToLoginScreen: () -> Unit
 ) {
-    // Scaffold para manejar el padding del sistema y la estructura base
+    // Scaffold proporciona la estructura base y maneja el padding del sistema
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
@@ -45,7 +45,7 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            // Espaciado superior para centrar el contenido
+            // Espaciado superior para centrar el contenido verticalmente
             Spacer(Modifier.height(240.dp))
 
             // Logo de la aplicación
@@ -57,7 +57,7 @@ fun HomeScreen(
                 contentDescription = "Logo Spotify"
             )
 
-            // Título principal
+            // Título principal de bienvenida
             Text(
                 text = "Millones de canciones.\nGratis en Spotify.",
                 textAlign = TextAlign.Center,
@@ -69,7 +69,7 @@ fun HomeScreen(
             // Espaciado entre el título y los botones
             Spacer(Modifier.height(100.dp))
 
-            // Column para los botones de acción
+            // Column para agrupar los botones de acción
             Column {
                 // Botón para registrarse
                 OutlinedButton(
@@ -109,7 +109,7 @@ fun HomeScreen(
                     )
                 }
             }
-            // Espaciado inferior
+            // Espaciado inferior para separar del borde
             Spacer(Modifier.height(30.dp))
         }
     }

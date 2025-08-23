@@ -27,15 +27,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.maraloedev.cursofirebaselite.R
 
 /**
- * Pantalla de registro principal.
+ * Pantalla principal de registro de usuario.
  * @param onNavigateToHome Navega a la pantalla principal.
- * @param onNavigateToContinueMail Navega a la pantalla para continuar con correo.
+ * @param onNavigateToContinueMail Navega a la pantalla de registro con correo.
  * @param onNavigateToLoginScreen Navega a la pantalla de inicio de sesión.
  */
 @Composable
@@ -44,7 +41,7 @@ fun RegisterScreen(
     onNavigateToContinueMail: () -> Unit,
     onNavigateToLoginScreen: () -> Unit
 ) {
-    // Scaffold para manejar el padding del sistema y la estructura base
+    // Scaffold para estructura base y manejo de padding del sistema
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
@@ -55,7 +52,7 @@ fun RegisterScreen(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
 
-            // Botón de retroceso
+            // Icono de retroceso para volver a la pantalla principal
             Icon(
                 modifier = Modifier
                     .clickable { onNavigateToHome() }
@@ -78,7 +75,7 @@ fun RegisterScreen(
                 contentDescription = "Logo Spotify"
             )
 
-            // Título principal
+            // Título principal de la pantalla de registro
             Text(
                 text = "Registrate para\nempezar a escuchar\ncontenido",
                 textAlign = TextAlign.Center,
@@ -87,9 +84,9 @@ fun RegisterScreen(
                 fontSize = 38.sp
             )
 
-            // Column para los botones de registro
+            // Column para agrupar los botones de registro
             Column {
-                // Botón para continuar con correo
+                // Botón para continuar con correo electrónico
                 OutlinedButton(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -109,7 +106,7 @@ fun RegisterScreen(
                         Image(
                             modifier = Modifier.size(20.dp),
                             painter = painterResource(id = R.drawable.mail),
-                            contentDescription = ""
+                            contentDescription = "" // Icono de correo
                         )
                         Spacer(Modifier.weight(1f))
                         Text(
@@ -123,7 +120,7 @@ fun RegisterScreen(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                // Botón para continuar con Google
+                // Botón para continuar con Google (sin acción implementada)
                 OutlinedButton(
                     modifier = Modifier
                         .fillMaxWidth()
