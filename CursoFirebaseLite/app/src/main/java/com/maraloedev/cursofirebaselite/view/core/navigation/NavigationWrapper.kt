@@ -9,7 +9,7 @@ import com.maraloedev.cursofirebaselite.view.home.HomeScreen
 import com.maraloedev.cursofirebaselite.view.login.LoginScreen
 import com.maraloedev.cursofirebaselite.view.login.LoginWithoutPasswordScreen
 import com.maraloedev.cursofirebaselite.view.login.MailScreen
-import com.maraloedev.cursofirebaselite.view.register.CreateNewAccountScreen
+import com.maraloedev.cursofirebaselite.view.createNewAccount.CreateNewAccountScreen
 import com.maraloedev.cursofirebaselite.view.register.RegisterScreen
 
 /**
@@ -45,6 +45,7 @@ fun NavigationWrapper(auth: FirebaseAuth) {
         // Pantalla para continuar con correo
         composable<CreateNewAccountScreen> {
             CreateNewAccountScreen(
+                auth = auth,
                 onNavigateToRegister = { navController.navigate(route = Register) }
             )
         }
@@ -52,7 +53,6 @@ fun NavigationWrapper(auth: FirebaseAuth) {
         // Pantalla de login
         composable<Login> {
             LoginScreen(
-
                 onNavigateToHome = { navController.navigate(route = Home) },
                 onNavigateToMail = { navController.navigate(route = MailScreen) },
                 onNavigateToRegister = { navController.navigate(route = Register) }
@@ -62,7 +62,7 @@ fun NavigationWrapper(auth: FirebaseAuth) {
         // Pantalla de login sin contraseña
         composable<LoginWithoutPassword> {
             LoginWithoutPasswordScreen(
-                onNavigateToContinueMail = { navController.navigate(CreateNewAccountScreen) }
+                onNavigateToContinueMail = { navController.navigate(route = MailScreen) }
             )
         }
 
@@ -70,7 +70,7 @@ fun NavigationWrapper(auth: FirebaseAuth) {
         composable<MailScreen> {
             MailScreen(
                 auth = auth,
-                onNavigateToHome = { navController.navigate(route = Home) },
+                onNavigateToLoginScreen = { navController.navigate(route = Login) },
                 onNavigateToLoginWithoutPassword = { navController.navigate(route = LoginWithoutPassword) }
             )
         }

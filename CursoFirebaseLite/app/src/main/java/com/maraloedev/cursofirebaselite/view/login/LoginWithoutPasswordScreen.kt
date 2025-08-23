@@ -20,6 +20,8 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,7 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.firebase.auth.FirebaseAuth
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maraloedev.cursofirebaselite.R
 
 /**
@@ -35,7 +37,12 @@ import com.maraloedev.cursofirebaselite.R
  * @param onNavigateToContinueMail Navega a la pantalla para continuar con correo.
  */
 @Composable
-fun LoginWithoutPasswordScreen(onNavigateToContinueMail: () -> Unit) {
+fun LoginWithoutPasswordScreen(
+    LoginWithoutPasswordViewModel: LoginWithoutPasswordViewModel = viewModel(),
+    onNavigateToContinueMail: () -> Unit
+) {
+
+    val state by LoginWithoutPasswordViewModel.state.collectAsState()
 
     // Scaffold para manejar el padding del sistema y la estructura base
     Scaffold { paddingValues ->
@@ -44,7 +51,7 @@ fun LoginWithoutPasswordScreen(onNavigateToContinueMail: () -> Unit) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Color(0xFF111111)), // Fondo oscuro
+                .background(Color(color = 0xFF111111)), // Fondo oscuro
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -58,12 +65,12 @@ fun LoginWithoutPasswordScreen(onNavigateToContinueMail: () -> Unit) {
                     modifier = Modifier
                         .clickable { onNavigateToContinueMail() }
                         .padding(all = 30.dp)
-                        .size(30.dp),
+                        .size(size = 30.dp),
                     painter = painterResource(id = R.drawable.ic_back_24),
                     contentDescription = "", // Descripción accesible vacía
                     tint = Color.White
                 )
-                Spacer(Modifier.width(10.dp))
+                Spacer(Modifier.width(width = 10.dp))
 
                 Text(
                     text = "Iniciar sesión sin contraseña",
@@ -95,12 +102,12 @@ fun LoginWithoutPasswordScreen(onNavigateToContinueMail: () -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 5.dp),
-                    value = "",
-                    onValueChange = {},
+                    value = state.mail,
+                    onValueChange = { LoginWithoutPasswordViewModel.isMailChange(mail = it) },
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = Color(0xFF585858),
-                        focusedBorderColor = Color(0xFF585858),
-                        unfocusedLabelColor = Color(0xFF292929)
+                        focusedContainerColor = Color(color = 0xFF585858),
+                        focusedBorderColor = Color(color = 0xFF585858),
+                        unfocusedLabelColor = Color(color = 0xFF292929)
                     ),
                     supportingText = {
                         Text(
@@ -119,13 +126,14 @@ fun LoginWithoutPasswordScreen(onNavigateToContinueMail: () -> Unit) {
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .padding(top = 16.dp)
-                            .height(55.dp),
+                            .height(height = 55.dp),
                         onClick = { },
+                        enabled = state.isEnabled,
                         colors = ButtonDefaults.outlinedButtonColors(
                             contentColor = Color.Black,
                             containerColor = Color.White,
                             disabledContentColor = Color.Black,
-                            disabledContainerColor = Color(0xFF585858)
+                            disabledContainerColor = Color(color = 0xFF585858)
                         )
                     ) {
                         Text(text = "Obtener enlace", fontWeight = FontWeight.Bold)

@@ -50,7 +50,7 @@ fun RegisterScreen(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
-                .background(Color(0xFF111111)), // Fondo oscuro
+                .background(Color(color = 0xFF111111)), // Fondo oscuro
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -177,7 +177,7 @@ fun RegisterScreen(
                         )
                     }
                 }
-                Spacer(Modifier.height(50.dp))
+                Spacer(Modifier.height(height = 50.dp))
             }
         }
     }

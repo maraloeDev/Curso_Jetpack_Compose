@@ -163,7 +163,7 @@ fun LoginScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 40.dp, end = 40.dp)
-                        .size(50.dp),
+                        .size(size = 50.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White,
                         containerColor = Color.Black
@@ -213,7 +213,7 @@ fun LoginScreen(
                     }
                 }
 
-                Spacer(Modifier.height(50.dp))
+                Spacer(Modifier.height(height = 50.dp))
             }
         }
     }
