@@ -41,9 +41,12 @@ import com.maraloedev.cursofirebaselite.R
 
 /**
  * Pantalla de inicio de sesión con correo y contraseña.
+ * Permite al usuario ingresar sus credenciales y autenticarse mediante Firebase.
+ *
  * @param auth Instancia de FirebaseAuth para autenticación.
  * @param onNavigateToLoginScreen Acción para navegar a la pantalla anterior.
  * @param onNavigateToLoginWithoutPassword Acción para navegar a login sin contraseña.
+ * @param onNavigateToInitialHome Acción para navegar a la pantalla inicial tras login exitoso.
  * @param mailViewModel ViewModel que gestiona el estado de la pantalla.
  */
 @Composable
@@ -51,18 +54,19 @@ fun MailScreen(
     auth: FirebaseAuth = Firebase.auth,
     onNavigateToLoginScreen: () -> Unit,
     onNavigateToLoginWithoutPassword: () -> Unit,
+    onNavigateToInitialHome: () -> Unit,
     mailViewModel: MailViewModel = viewModel()
 ) {
-    // Observa el estado actual del ViewModel
+    // Observa el estado actual del ViewModel para los campos de correo y contraseña
     val state by mailViewModel.state.collectAsState()
 
-    // Scaffold para la estructura base y manejo de padding del sistema
+    // Estructura base de la pantalla, maneja el padding del sistema
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(Color(color = 0xFF111111)), // Fondo oscuro
+                .background(Color(0xFF111111)), // Fondo oscuro
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -73,14 +77,14 @@ fun MailScreen(
             ) {
                 Icon(
                     modifier = Modifier
-                        .clickable { onNavigateToLoginScreen() } // Navega hacia atrás
-                        .padding(all = 30.dp)
+                        .clickable { onNavigateToLoginScreen() } // Acción de volver atrás
+                        .padding(30.dp)
                         .size(30.dp),
                     painter = painterResource(id = R.drawable.ic_back_24),
                     contentDescription = "", // Descripción accesible vacía
                     tint = Color.White
                 )
-                Spacer(Modifier.width(width = 50.dp))
+                Spacer(Modifier.width(50.dp))
             }
 
             Spacer(Modifier.padding(top = 30.dp))
@@ -89,7 +93,7 @@ fun MailScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(all = 10.dp)
+                    .padding(10.dp)
             ) {
                 // Etiqueta y campo de correo electrónico o usuario
                 Text(
@@ -105,9 +109,9 @@ fun MailScreen(
                     value = state.mail,
                     onValueChange = { mailViewModel.isMailChanged(mail = it) },
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = Color(color = 0xFF585858),
-                        focusedBorderColor = Color(color = 0xFF585858),
-                        unfocusedLabelColor = Color(color = 0xFF292929)
+                        focusedContainerColor = Color(0xFF585858),
+                        focusedBorderColor = Color(0xFF585858),
+                        unfocusedLabelColor = Color(0xFF292929)
                     )
                 )
                 Spacer(Modifier.padding(top = 20.dp))
@@ -126,9 +130,9 @@ fun MailScreen(
                     value = state.password,
                     onValueChange = { mailViewModel.isPasswordChanged(password = it) },
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = Color(color = 0xFF585858),
-                        focusedBorderColor = Color(color = 0xFF585858),
-                        unfocusedLabelColor = Color(color = 0xFF292929)
+                        focusedContainerColor = Color(0xFF585858),
+                        focusedBorderColor = Color(0xFF585858),
+                        unfocusedLabelColor = Color(0xFF292929)
                     )
                 )
 
@@ -141,13 +145,14 @@ fun MailScreen(
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .padding(top = 16.dp)
-                            .height(height = 55.dp),
+                            .height(55.dp),
                         onClick = {
-                            // Intenta iniciar sesión con Firebase
+                            // Intenta iniciar sesión con Firebase usando los datos ingresados
                             auth.signInWithEmailAndPassword(
                                 state.mail, state.password
                             ).addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
+                                    onNavigateToInitialHome() // Navega a la pantalla principal
                                     Log.i("EDUARDO", "REGISTRO OK") // Login exitoso
                                 } else {
                                     Log.i("EDUARDO", "REGISTRO NO") // Error en login
@@ -167,8 +172,8 @@ fun MailScreen(
                     Spacer(Modifier.padding(top = 22.dp))
                     // Botón para iniciar sesión sin contraseña
                     TextButton(
-                        border = BorderStroke(width = 1.dp, Color(0xFF222222)),
-                        shape = RoundedCornerShape(size = 30.dp),
+                        border = BorderStroke(1.dp, Color(0xFF222222)),
+                        shape = RoundedCornerShape(30.dp),
                         onClick = { onNavigateToLoginWithoutPassword() }
                     ) {
                         Text(

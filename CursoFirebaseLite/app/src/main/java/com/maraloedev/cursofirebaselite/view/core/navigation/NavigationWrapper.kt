@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.maraloedev.cursofirebaselite.view.createNewAccount.CreateNewAccountScreen
 import com.maraloedev.cursofirebaselite.view.home.HomeScreen
+import com.maraloedev.cursofirebaselite.view.initialHome.InitialHomeScreen
 import com.maraloedev.cursofirebaselite.view.login.LoginScreen
 import com.maraloedev.cursofirebaselite.view.login.LoginWithoutPasswordScreen
 import com.maraloedev.cursofirebaselite.view.login.MailScreen
@@ -71,8 +72,14 @@ fun NavigationWrapper(auth: FirebaseAuth) {
             MailScreen(
                 auth = auth,
                 onNavigateToLoginScreen = { navController.navigate(route = Login) },
-                onNavigateToLoginWithoutPassword = { navController.navigate(route = LoginWithoutPassword) }
+                onNavigateToLoginWithoutPassword = { navController.navigate(route = LoginWithoutPassword) },
+                onNavigateToInitialHome = { navController.navigate(route = InitialHome) }
             )
+        }
+
+        // Ruta: Pantalla inicial tras login exitoso
+        composable<InitialHome> {
+            InitialHomeScreen()
         }
     }
 }
