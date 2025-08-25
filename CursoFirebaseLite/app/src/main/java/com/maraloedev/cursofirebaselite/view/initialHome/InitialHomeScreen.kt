@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -36,49 +37,52 @@ fun InitialHomeScreen(initialHomeViewModel: InitialHomeViewModel = viewModel()) 
     // Observa el estado actual de la lista de artistas desde el ViewModel.
     val state = initialHomeViewModel.artist.collectAsState()
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF111111)) // Fondo oscuro para la pantalla
-    ) {
+    Scaffold { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .background(Color(0xFF111111)) // Fondo oscuro para la pantalla
+        ) {
 
-        // Título principal de la sección
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = "Artistas Populares",
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            fontSize = 30.sp
-        )
+            // Título principal de la sección
+            Text(
+                modifier = Modifier.padding(16.dp),
+                text = "Artistas Populares",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp
+            )
 
-        // Lista horizontal que muestra cada artista usando ArtistItem
-        LazyRow {
-            items(items = state.value) { artist ->
-                ArtistItem(artist = artist)
+            // Lista horizontal que muestra cada artista usando ArtistItem
+            LazyRow {
+                items(items = state.value) { artist ->
+                    ArtistItem(artist = artist)
+                }
             }
         }
     }
-}
 
-/**
- * Componente que representa visualmente a un artista.
- * Muestra la imagen y el nombre del artista en formato vertical.
- *
- * @param artist Instancia de Artist con los datos a mostrar.
- */
-@Composable
-fun ArtistItem(artist: Artist) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        // Imagen circular del artista
-        AsyncImage(
-            modifier = Modifier
-                .size(60.dp)
-                .clip(CircleShape),
-            model = artist.image,
-            contentDescription = "Imagen del artista",
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        // Nombre del artista debajo de la imagen
-        Text(text = artist.name.orEmpty(), color = Color.White)
-    }
+    /**
+     * Componente que representa visualmente a un artista.
+     * Muestra la imagen y el nombre del artista en formato vertical.
+     *
+     * @param artist Instancia de Artist con los datos a mostrar.
+     */
 }
+    @Composable
+    fun ArtistItem(artist: Artist) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            // Imagen circular del artista
+            AsyncImage(
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(CircleShape),
+                model = artist.image,
+                contentDescription = "Imagen del artista",
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            // Nombre del artista debajo de la imagen
+            Text(text = artist.name.orEmpty(), color = Color.White)
+        }
+    }
